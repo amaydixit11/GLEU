@@ -34,7 +34,7 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // --- DATA ---
-// Chronological Order: Jan 7, then Feb 6 (1:20 PM -> 1:50 PM -> 10:46 PM -> 11:30 PM)
+// Chronological Order: Jan 7, then Feb 5 (10:46 PM -> 11:30 PM) then Feb 6 (1:20 PM -> 1:50 PM)
 
 const gamesData = [
   {
@@ -42,19 +42,19 @@ const gamesData = [
     raw: ['Chetan', 'Rishi', 'Rohit', 'Saurav', 'Kabeer', 'Amay', 'Akshay']
   },
   {
-    date: '2026-02-06T13:20:00Z', // 1:20 PM
+    date: '2026-02-06T13:20:00Z', // 6th Feb 1:20 PM
     raw: ['Rohit', 'Kabeer', 'Amay', 'Saurav', 'Chetan', 'Akshay', 'Rohit', 'Akshay', 'Rohit']
   },
   {
-    date: '2026-02-06T13:50:00Z', // 1:50 PM
+    date: '2026-02-06T13:50:00Z', // 6th Feb 1:50 PM
     raw: ['Rishi', 'Akshay', 'Chetan', 'Saurav', 'Amay', 'Kabeer', 'Rohit', 'Kabeer', 'Amay', 'Kabeer', 'Kabeer']
   },
   {
-    date: '2026-02-05T22:46:00Z', // 10:46 PM
+    date: '2026-02-05T22:46:00Z', // 5th Feb 10:46 PM
     raw: ['Shashank', 'Amay', 'Kabeer', 'Rohit', 'Rishi', 'Chetan', 'Rohit', 'Kabeer', 'Rohit']
   },
   {
-    date: '2026-02-05T23:30:00Z', // 11:30 PM
+    date: '2026-02-05T23:30:00Z', // 5th Feb 11:30 PM
     raw: ['Rohit', 'Akshay', 'Saurav', 'Amay', 'Farhan', 'Rishi']
   }
 ]
@@ -103,6 +103,9 @@ async function seed() {
   await supabase.from('games').delete().neq('id', '00000000-0000-0000-0000-000000000000') 
 
   // 3. Process Games
+  // Ensure strict chronological order
+  gamesData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
   for (const gameData of gamesData) {
     console.log(`\nProcessing Game: ${gameData.date}`)
     
