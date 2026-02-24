@@ -128,22 +128,24 @@ export default function RivalryPage() {
 
   return (
     <main className="min-h-screen p-4 md:p-8 max-w-5xl mx-auto space-y-8">
-      <header className="flex items-center gap-4 flex-wrap">
-        <Link href="/" className="p-2 border border-foreground hover:bg-uno-red hover:text-white transition-colors">
-          <ArrowLeft size={20} />
-        </Link>
-        <h1 className="text-3xl md:text-4xl font-black font-mono uppercase tracking-tighter text-uno-red flex items-center gap-3">
-          <Swords size={32} /> Rivalry
-        </h1>
+      <header className="flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div className="flex items-center gap-4 w-full md:w-auto">
+          <Link href="/" className="p-2 border border-foreground hover:bg-uno-red hover:text-white transition-colors">
+            <ArrowLeft size={20} />
+          </Link>
+          <h1 className="text-2xl md:text-4xl font-black font-mono uppercase tracking-tighter text-uno-red flex items-center gap-3">
+            <Swords size={24} className="md:w-8 md:h-8" /> Rivalry
+          </h1>
+        </div>
 
         {/* Rating mode toggle */}
-        <div className="flex bg-white/5 border border-foreground/20 text-xs font-mono ml-auto">
+        <div className="flex bg-white/5 border border-foreground/20 text-[10px] md:text-xs font-mono w-full md:w-auto md:ml-auto overflow-hidden">
           {MODES.map(m => (
             <button
               key={m.key}
               onClick={() => setMode(m.key)}
               className={cn(
-                "px-3 py-1.5 transition-colors font-bold uppercase",
+                "flex-1 md:flex-none px-2 md:px-3 py-1.5 md:py-2 transition-colors font-bold uppercase",
                 mode === m.key ? "bg-uno-red text-white" : "hover:bg-white/10"
               )}
             >
@@ -158,7 +160,7 @@ export default function RivalryPage() {
         <div className="border border-foreground/20 p-4 bg-white/5">
           <label className="font-mono text-xs uppercase opacity-50 mb-2 block">Player 1</label>
           <select
-            className="w-full bg-background border border-foreground/20 p-3 font-mono text-lg font-bold focus:border-uno-blue outline-none appearance-none cursor-pointer rounded-none"
+            className="w-full bg-background border border-foreground/20 p-3 font-mono text-sm md:text-lg font-bold focus:border-uno-blue outline-none appearance-none cursor-pointer rounded-none"
             value={p1Id}
             onChange={(e) => setP1Id(e.target.value)}
           >
@@ -171,7 +173,7 @@ export default function RivalryPage() {
         <div className="border border-foreground/20 p-4 bg-white/5">
           <label className="font-mono text-xs uppercase opacity-50 mb-2 block">Player 2</label>
           <select
-            className="w-full bg-background border border-foreground/20 p-3 font-mono text-lg font-bold focus:border-uno-red outline-none appearance-none cursor-pointer rounded-none"
+            className="w-full bg-background border border-foreground/20 p-3 font-mono text-sm md:text-lg font-bold focus:border-uno-red outline-none appearance-none cursor-pointer rounded-none"
             value={p2Id}
             onChange={(e) => setP2Id(e.target.value)}
           >
@@ -187,24 +189,24 @@ export default function RivalryPage() {
       {p1 && p2 && sharedGames.length > 0 && (
         <>
           {/* Head to Head Record */}
-          <div className="border border-foreground/20 bg-white/5 p-6 shadow-[4px_4px_0px_0px_var(--uno-red)]">
-            <div className="flex items-center justify-between">
-              <div className="text-center flex-1">
-                <div className="text-3xl md:text-5xl font-black font-mono text-uno-blue">{p1.name}</div>
-                <div className="font-mono text-sm opacity-40 mt-1">{getRating(p1)} {modeLabel}</div>
+          <div className="border border-foreground/20 bg-white/5 p-4 md:p-6 shadow-[4px_4px_0px_0px_var(--uno-red)]">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+              <div className="text-center flex-1 w-full md:w-auto bg-black/20 p-4 md:p-0 md:bg-transparent">
+                <div className="text-2xl md:text-5xl font-black font-mono text-uno-blue truncate px-2">{p1.name}</div>
+                <div className="font-mono text-xs md:text-sm opacity-40 mt-1">{getRating(p1)} {modeLabel}</div>
               </div>
-              <div className="text-center px-6 flex flex-col items-center">
-                <div className="flex items-center gap-4 font-mono text-3xl md:text-5xl font-black">
+              <div className="text-center px-6 flex flex-col items-center shrink-0">
+                <div className="flex items-center gap-4 font-mono text-4xl md:text-5xl font-black">
                   <span className={cn(p1Wins > p2Wins ? "text-uno-green" : "opacity-50")}>{p1Wins}</span>
                   <span className="opacity-20 text-lg">–</span>
                   <span className={cn(p2Wins > p1Wins ? "text-uno-green" : "opacity-50")}>{p2Wins}</span>
                 </div>
                 {draws > 0 && <span className="font-mono text-xs opacity-30 mt-1">{draws} draws</span>}
-                <span className="font-mono text-xs opacity-40 mt-1">{sharedGames.length} games together</span>
+                <span className="font-mono text-xs opacity-40 mt-2 bg-foreground/10 px-2 py-1 rounded">{sharedGames.length} games together</span>
               </div>
-              <div className="text-center flex-1">
-                <div className="text-3xl md:text-5xl font-black font-mono text-uno-red">{p2.name}</div>
-                <div className="font-mono text-sm opacity-40 mt-1">{getRating(p2)} {modeLabel}</div>
+              <div className="text-center flex-1 w-full md:w-auto bg-black/20 p-4 md:p-0 md:bg-transparent">
+                <div className="text-2xl md:text-5xl font-black font-mono text-uno-red truncate px-2">{p2.name}</div>
+                <div className="font-mono text-xs md:text-sm opacity-40 mt-1">{getRating(p2)} {modeLabel}</div>
               </div>
             </div>
           </div>

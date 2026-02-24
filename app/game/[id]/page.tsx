@@ -144,20 +144,20 @@ export default async function GameDetail({ params }: { params: Promise<{ id: str
                 </div>
 
                 {/* Rating changes grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 ml-14">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mt-4 md:mt-0 md:ml-14">
                   {SYSTEMS.map(sys => {
                     const before = r[sys.before]
                     const after = r[sys.after]
                     const change = r[sys.change]
                     if (before == null && after == null) return null
                     return (
-                      <div key={sys.key} className="flex items-center gap-2 font-mono text-xs">
-                        <span className={cn("font-bold uppercase text-[10px] w-6", sys.color)}>{sys.label}</span>
+                      <div key={sys.key} className="flex items-center gap-2 font-mono text-xs bg-black/10 p-2 rounded-sm md:bg-transparent md:p-0">
+                        <span className={cn("font-bold uppercase text-[10px] min-w-[32px]", sys.color)}>{sys.label}</span>
                         <span className="opacity-40">{before ?? '—'}</span>
                         <span className="opacity-20">→</span>
                         <span className="font-bold">{after ?? '—'}</span>
                         <span className={cn(
-                          "font-bold",
+                          "font-bold ml-auto md:ml-0",
                           change > 0 ? "text-uno-green" : change < 0 ? "text-uno-red" : "opacity-30"
                         )}>
                           {change != null ? (change > 0 ? '+' : '') + change : ''}

@@ -50,18 +50,18 @@ export default async function HistoryPage() {
                 .sort((a: any, b: any) => a.normalized_position - b.normalized_position)
                 .map((result: any) => (
                 <div key={result.player_id} className="flex justify-between items-center bg-black/20 p-3 border-l-2 border-l-transparent hover:border-l-uno-yellow transition-all">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3 shrink-0">
                     <span className={cn(
-                      "font-mono font-bold",
+                      "font-mono font-bold text-xs md:text-sm",
                       result.normalized_position === 1 ? "text-uno-yellow" : 
                       result.normalized_position === 2 ? "text-uno-green" :
                       result.normalized_position === 3 ? "text-uno-blue" : "text-foreground"
                     )}>
                       {result.normalized_position % 1 === 0 ? `#${result.normalized_position}` : `#${result.normalized_position.toFixed(1)}`}
                     </span>
-                    <span className="font-bold">{result.players?.name}</span>
+                    <span className="font-bold text-xs md:text-sm truncate max-w-[80px] sm:max-w-[120px] md:max-w-none">{result.players?.name}</span>
                   </div>
-                  <div className="flex gap-3 font-mono text-xs font-bold">
+                  <div className="flex gap-2 md:gap-3 font-mono text-[10px] sm:text-xs font-bold shrink-0">
                     <span className={result.elo_change >= 0 ? 'text-uno-green' : 'text-uno-red'} title="Elo">
                       {result.elo_change > 0 ? '+' : ''}{result.elo_change}
                     </span>

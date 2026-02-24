@@ -128,13 +128,13 @@ export default function Leaderboard() {
         <span>Leaderboard</span>
         <div className="flex items-center gap-2">
           {/* 4-way Rating Mode Toggle */}
-          <div className="flex bg-black/30 text-xs rounded-none overflow-hidden">
+          <div className="flex bg-black/30 text-[10px] md:text-xs rounded-none overflow-hidden mt-2 md:mt-0 w-full md:w-auto">
             {MODES.map(m => (
               <button
                 key={m.key}
                 onClick={() => setMode(m.key)}
                 className={cn(
-                  "px-2 md:px-3 py-1.5 transition-colors font-bold uppercase tracking-wider",
+                  "flex-1 md:flex-none px-1 md:px-3 py-1.5 transition-colors font-bold uppercase tracking-wider",
                   mode === m.key ? "bg-white text-uno-red" : "hover:bg-white/10"
                 )}
               >
@@ -147,12 +147,12 @@ export default function Leaderboard() {
       </div>
       
       <div className="divide-y-2 divide-foreground/10">
-        <div className="grid grid-cols-12 gap-2 md:gap-4 p-3 md:p-4 font-mono text-xs md:text-sm opacity-50 uppercase tracking-wider">
+        <div className="grid grid-cols-12 gap-2 md:gap-4 p-3 md:p-4 font-mono text-[10px] md:text-sm opacity-50 uppercase tracking-wider">
           <div className="col-span-2 md:col-span-1">Rank</div>
-          <div className="col-span-4 md:col-span-4">Player</div>
+          <div className="col-span-5 md:col-span-4">Player</div>
           <div className="col-span-3 md:col-span-3 text-right">Rating</div>
           <div className="hidden md:block md:col-span-2 text-center">Games</div>
-          <div className="col-span-3 md:col-span-2 text-right">Trend</div>
+          <div className="col-span-2 md:col-span-2 text-right">Trend</div>
         </div>
 
         {sorted.map((player, index) => {
@@ -172,7 +172,7 @@ export default function Leaderboard() {
               <div className={cn("col-span-2 md:col-span-1 font-mono text-xl md:text-2xl font-black", getRankColor(index))}>
                 #{index + 1}
               </div>
-              <div className="col-span-4 md:col-span-4 font-bold text-base md:text-lg truncate">
+              <div className="col-span-5 md:col-span-4 font-bold text-base md:text-lg truncate">
                 <Link href={`/player/${player.id}`} className="hover:text-uno-blue transition-colors hover:underline underline-offset-4">
                   {player.name}
                 </Link>
@@ -186,7 +186,7 @@ export default function Leaderboard() {
                 <Hash size={12} />
                 {player.gamesPlayed}
               </div>
-              <div className="col-span-3 md:col-span-2 flex justify-end items-center gap-1 font-mono text-sm font-bold">
+              <div className="col-span-2 md:col-span-2 flex justify-end items-center gap-1 font-mono text-sm font-bold">
                 {recentChange > 0 ? (
                   <span className="flex items-center gap-1 text-uno-green">
                     <ArrowUp size={14} />
