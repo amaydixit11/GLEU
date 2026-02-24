@@ -35,14 +35,14 @@ export default async function GameDetail({ params }: { params: Promise<{ id: str
 
   // Games played count for each player at game time
   const gamesPlayedMap: Record<string, number> = {}
-  for (const r of results) {
+  await Promise.all(results.map(async (r: any) => {
     const { count } = await supabase
       .from('game_results')
-      .select('*, games!inner(played_at)', { count: 'exact', head: true })
+      .select('id, games!inner(played_at)', { count: 'exact', head: true })
       .eq('player_id', r.player_id)
       .lt('games.played_at', game.played_at)
     gamesPlayedMap[r.player_id] = count ?? 0
-  }
+  }))
 
   // Compute pairwise breakdown
   const pairwise: {

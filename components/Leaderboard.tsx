@@ -45,7 +45,7 @@ export default function Leaderboard() {
 
     const { data: allResults } = await supabase
       .from('game_results')
-      .select('player_id, elo_change, cf_change, os_change, whr_change, game_id, games(played_at)')
+      .select('player_id, elo_change, cf_change, os_change, whr_change')
       .order('created_at', { ascending: false })
 
     const statsMap: Record<string, { gamesPlayed: number; recentEloChange: number; recentCfChange: number; recentOsChange: number; recentWhrChange: number }> = {}
